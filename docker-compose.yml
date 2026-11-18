@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       polymarket
+      POSTGRES_USER:     poly
+      POSTGRES_PASSWORD: poly
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql  # auto-init on first run
+
+volumes:
+  pgdata:
